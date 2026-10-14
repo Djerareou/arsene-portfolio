@@ -1,4 +1,6 @@
 import { ArrowUpRight, CheckCircle2 } from "lucide-react"
+import { Link } from "react-router-dom"
+import { projects } from "../data/portfolio"
 
 function FeaturedProject() {
   return (
@@ -17,7 +19,7 @@ function FeaturedProject() {
             </h2>
           </div>
 
-          <span className="hidden text-sm text-white/30 md:block">
+          <span className="hidden text-sm text-slate-400 md:block">
             Hardware · IoT · Agriculture
           </span>
         </div>
@@ -28,6 +30,8 @@ function FeaturedProject() {
           {/* Image */}
           <div className="relative overflow-hidden bg-black">
             <img
+              loading="lazy"
+              decoding="async"
               src="/images/projects/agri-scan-elite.jpg"
               alt="Agri-Scan Elite connected soil probe prototype"
               className="mx-auto block max-h-[780px] w-full object-contain transition-transform duration-700 hover:scale-[1.01]"
@@ -43,7 +47,7 @@ function FeaturedProject() {
           <div className="grid gap-12 p-7 sm:p-10 lg:grid-cols-[1fr_0.8fr] lg:p-14">
 
             <div>
-              <p className="mb-3 text-sm text-white/40">
+              <p className="mb-3 text-sm text-slate-400">
                 7-in-1 Connected Soil Certification Probe
               </p>
 
@@ -52,26 +56,26 @@ function FeaturedProject() {
                 field-ready digital workflow.
               </h3>
 
-              <p className="mt-6 max-w-2xl text-base leading-7 text-white/50">
+              <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400">
                 Agri-Scan Elite is an IoT prototype combining embedded
                 electronics, sensing, positioning and digital software
                 components for agricultural field use.
               </p>
 
-              <a
-                href="#"
+              <Link
+                to="/projects/agri-scan-elite"
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.02]"
               >
                 View case study
                 <ArrowUpRight size={16} />
-              </a>
+              </Link>
             </div>
 
             <div className="space-y-8">
 
               {/* Status */}
               <div>
-                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/30">
+                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">
                   Status
                 </p>
 
@@ -79,14 +83,14 @@ function FeaturedProject() {
                   Working prototype
                 </p>
 
-                <p className="mt-1 text-sm text-white/40">
-                  2 units built · PCBs in fabrication
+                <p className="mt-1 text-sm text-slate-400">
+                  {projects[0].progress}
                 </p>
               </div>
 
               {/* Dimensions */}
               <div>
-                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/30">
+                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">
                   Prototype
                 </p>
 
@@ -94,26 +98,19 @@ function FeaturedProject() {
                   65 cm total length
                 </p>
 
-                <p className="mt-1 text-sm text-white/40">
+                <p className="mt-1 text-sm text-slate-400">
                   15 cm electronics module · 50 cm probe body
                 </p>
               </div>
 
               {/* Stack */}
               <div>
-                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/30">
+                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">
                   Technology
                 </p>
 
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "ESP32",
-                    "NEO-M8N",
-                    "ATECC508A",
-                    "KiCad",
-                    "Flutter",
-                    "FastAPI",
-                  ].map((technology) => (
+                  {projects[0].technologies.map((technology) => (
                     <span
                       key={technology}
                       className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/60"
