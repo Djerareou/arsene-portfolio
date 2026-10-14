@@ -1,10 +1,18 @@
-# Arsène DJERAREOU — Engineering portfolio
+# Arsène DJERAREOU — Creative Futurism portfolio V2
 
-A V1 extension of the existing React + TypeScript + Vite + Tailwind portfolio. The dark foundation and official Agri-Scan Elite photograph are preserved. Site copy is in English, matching the original portfolio.
+React + TypeScript + Vite + Tailwind portfolio, extended from the existing V1. No new dependencies. All existing routes, contact details, proposed FCFA tariffs, seven services and five project maturity levels are retained.
 
-## Run and verify
+## Design and interaction
 
-Use Node.js **22.12+** (or a compatible newer version supported by Vite 8).
+Deep midnight canvas, cyan connection details, electric-violet editorial accents, large typography, asymmetric project layouts and geometric SVG connection studies. The official photograph of Agri-Scan Elite remains at `public/images/projects/agri-scan-elite.jpg`; no replacement image or fabricated results are used.
+
+Framer Motion handles a staggered Hero entry, a single finite orbital movement, once-only viewport reveals, short route fades and the mobile menu. No continuous rendering loop, 3D engine or pointer-tracking effect is added. Reduced-motion preferences disable entrance movements and reduce CSS transitions.
+
+The mobile menu fills the viewport, traps keyboard focus, supports Escape, locks background scrolling and makes main/footer inert while open. It closes on navigation, history changes and a resize to desktop. Anchor navigation scrolls to and focuses the target after routing. Query-string service selection on Contact remounts the message draft for the selected service.
+
+## Run
+
+Use Node.js 22.12+ or a compatible newer release supported by Vite 8.
 
 ```sh
 npm ci
@@ -13,68 +21,42 @@ npm run build
 npm run dev
 ```
 
-For the production bundle, run `npm run preview` after building.
+Run `npm run preview` after building to inspect the production bundle.
 
-## Content and contacts
+## Routes
 
-`src/data/portfolio.ts` holds identity, navigation, project maturity, service descriptions, proposed FCFA ranges and page metadata. Two supplied contact phone numbers and the public LinkedIn profile are configured. Set `contact.email` only when a verified public email is available. The GitHub profile is the existing known public account.
+`/`, `/about`, `/projects`, `/projects/agri-scan-elite`, `/services`, `/pricing`, `/contact`, and a fallback 404 view.
 
-The Contact page prepares a message locally. When email is configured, it opens the user's email application; it does not submit to a server. With no email, it copies a draft and offers a visible draft if clipboard access fails. No message is sent automatically and no delivery backend exists.
+React Router uses BrowserRouter. Vercel rewrites are in `vercel.json`; Netlify fallback is in `public/_redirects`. Other hosts need an equivalent SPA fallback. The 404 is a client view; a host may return HTTP 200. Metadata is managed by React 19 on navigation and is not pre-rendered for crawlers that do not execute JavaScript.
 
-Pricing ranges are proposals for discussion, **not verified market prices**. Confirm the FCFA zone (XOF/XAF), taxes, scope, payment terms and additional expenses in a quote.
+## Content
 
-## Routes and hosting
+`src/data/portfolio.ts` remains unchanged from V1: two international +235 numbers, Gmail, LinkedIn, GitHub, FCFA ranges, Communication & Content and all other services/projects. Only verified public data belongs in that file. Never add tokens or private credentials.
 
-- `/`: Home
-- `/about`: About
-- `/projects`: all five projects and their declared maturity
-- `/projects/agri-scan-elite`: case study
-- `/services`: seven services
-- `/pricing`: indicative proposed budgets
-- `/contact`: configured channels and message drafting
-- Any other route: 404 view
+Contact uses mailto/tel links and a locally prepared message. Opening an email app does not send the message automatically. No message-delivery backend is present.
 
-React Router uses `BrowserRouter`. The host must serve `index.html` for application routes while serving static files normally. `public/_redirects` provides a Netlify fallback; `vercel.json` provides a Vercel fallback. Configure an equivalent fallback on other hosts. Plain GitHub Pages does not support these rewrites: use an appropriate routing deployment configuration before hosting there. Direct nested-route navigation must be tested on the chosen host.
+Prices remain indicative proposals rather than verified market prices. Currency zone (XOF/XAF), taxes, scope and additional costs are agreed separately.
 
-This is a client-rendered SPA. React 19 updates titles and descriptions on navigation. Per-page metadata is not pre-rendered for crawlers that do not execute JavaScript. The 404 view is client-side; the host fallback may return HTTP 200.
+Agri-Scan Elite is a working prototype: two units built, PCBs in fabrication. Further testing/integration remains proposed work; measurement accuracy, certification, field deployment and production readiness are not claimed.
 
-## Official image
+## Git base and icon compatibility
 
-Keep `public/images/projects/agri-scan-elite.jpg` from the original repository. It is used on Home and the case study, with responsive sizing and `object-contain`. No replacement image has been generated. The incomplete Cloud source snapshot could not retrieve binary assets; the delivery patch leaves the original photograph untouched.
+V2 starts from main `1becdc6`. PR #2 was still open at the start of V2; its `Github` → `ExternalLink` and `CheckCircle2` → `CircleCheck` corrections are included without merging that PR. Icon names are checked against upstream lucide-react 1.37.0 sources, matching package-lock.json. The npm distribution cannot be inspected locally until dependency installation succeeds.
 
-## Validation checklist
+## Validation and mobile review
 
-In the Cloud session, dependency installation was blocked by the configured network proxy; the offline npm cache was also incomplete. `npm run lint` and `npm run build` were attempted but could not run because ESLint and TypeScript were not installed. A browser preview and runtime validation were therefore unavailable.
+Cloud `npm ci` is blocked by the configured proxy (`connect EPERM 172.31.1.125:8080`). Lint and build were attempted but cannot complete without ESLint and TypeScript. No successful local build, browser accessibility audit, screenshot review or measured performance score is claimed.
 
-After installing dependencies:
+Static checks cover preserved data/dependency files, relative imports, all routes, absence of placeholder links, icon names, and the original image reference. Confirm the PR's Vercel deployment before visual review.
 
-1. Run lint and build, and resolve any reported errors before publication.
-2. Check all six pages, the case study and an unknown route.
-3. Navigate Home → Projects → Agri-Scan Elite → Projects; refresh nested routes on the actual host.
-4. Check mobile widths of 320, 375, 390 and 768 px; open and close the menu, select a link and press Escape. Check for horizontal overflow.
-5. Navigate with keyboard only; verify focus indicators, skip link, route focus and reduced-motion behaviour.
-6. Verify the official image loads on Home and the case study.
-7. Test the default copy-draft contact flow, clipboard failure fallback, and a configured email address opening the email app. Verify phone and LinkedIn only after real details are configured.
-8. Check page titles and descriptions after navigation and read the FCFA pricing disclaimer.
+On the Vercel preview, review:
 
-## Applying the Cloud delivery
+- Home, About, Projects, case study, Services, Pricing, Contact and unknown routes.
+- 320/375/390 px phones, tablet and desktop widths; confirm no horizontal scrolling.
+- Menu open/close, Escape, Tab/Shift+Tab, background scroll lock and browser Back.
+- Home service links to `/services#…`, refreshing a nested route, and quote links selecting the correct Contact service.
+- Both telephone links, Gmail, LinkedIn/GitHub, and the official photograph.
+- Keyboard focus/skip link, contrast, OS reduced motion and readable content after reveals.
+- Existing prices and project maturity copy, plus Communication & Content.
 
-The Cloud branch is based on a **local source snapshot**, not a cloned Git history. Do not push that reconstructed history to the remote. Apply the supplied `portfolio-v1.patch` to a fresh clone instead, on `codex/portfolio-professionnel`. This preserves the real repository history and binary assets.
-
-```sh
-git clone https://github.com/Djerareou/arsene-portfolio.git
-cd arsene-portfolio
-git switch -c codex/portfolio-professionnel
-git apply --check /path/to/portfolio-v1.patch
-git apply /path/to/portfolio-v1.patch
-# Remove the unused original Vite starter illustration, if present:
-git rm --ignore-unmatch src/assets/hero.png
-npm ci
-npm run lint
-npm run build
-git add .
-git commit -m "feat: complete professional engineering portfolio V1"
-git push -u origin codex/portfolio-professionnel
-```
-
-Then open a Pull Request toward `main` using the supplied `PULL_REQUEST.md`. Do not merge until reviewed. If the branch already exists remotely, check it out and inspect its changes before applying the patch; do not overwrite or force-push it.
+The GitHub-connected Vercel projects should create branch previews on the PR. Preview URLs and deployment state must be obtained from Vercel's actual status/comment rather than guessed. Do not merge before approval.
