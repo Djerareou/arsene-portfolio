@@ -1,54 +1,22 @@
-import { ArrowUpRight } from "lucide-react"
-
-const navItems = [
-  { label: "Work", href: "#work" },
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
-]
+import { useEffect, useRef, useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { navigation } from '../data/portfolio'
 
 function Navbar() {
-  return (
-    <header className="border-b border-white/10">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-        <a
-          href="#"
-          className="text-sm font-semibold tracking-[0.18em] text-white"
-        >
-          ARSÈNE DJERAREOU
-        </a>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-sm text-white/60 transition-colors hover:text-white"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <a
-          href="#contact"
-          className="hidden items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-medium transition-all hover:border-white/30 hover:bg-white/5 md:flex"
-        >
-          Work with me
-          <ArrowUpRight size={15} />
-        </a>
-
-        <button
-          type="button"
-          className="rounded-lg border border-white/10 px-3 py-2 text-sm md:hidden"
-          aria-label="Open navigation"
-        >
-          Menu
-        </button>
-      </div>
-    </header>
-  )
+  const [open, setOpen] = useState(false)
+  const toggle = useRef<HTMLButtonElement>(null)
+  const menu = useRef<HTMLElement>(null)
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (!open) return
+    menu.current?.querySelector<HTMLAnchorElement>('a')?.focus()
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Escape') { setOpen(false); toggle.current?.focus() }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+  return <header className="site-header"><div className="container nav-shell"><Link className="brand" to="/" onClick={() => setOpen(false)}>ARSÈNE DJERAREOU<span>ENGINEERING · SYSTEMS · CLARITY</span></Link><button ref={toggle} className="menu-toggle" type="button" aria-expanded={open} aria-controls="primary-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button><nav ref={menu} id="primary-navigation" aria-label="Primary" className={`primary-nav ${open ? 'is-open' : ''}`} key={pathname}>{navigation.map(item => <NavLink key={item.to} to={item.to} end={item.to === '/'} onClick={() => setOpen(false)}>{item.label}</NavLink>)}</nav></div></header>
 }
-
 export default Navbar
